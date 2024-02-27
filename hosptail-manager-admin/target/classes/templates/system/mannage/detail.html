@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <header th:replace="header::html"></header>
+</head>
+<body>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:970px;height:90px"
+     data-ad-client="ca-pub-6111334333458862"
+     data-ad-slot="3820120620"></ins>
+
+<fieldset class="layui-elem-field layui-field-title">
+    <legend>详情</legend>
+</fieldset>
+
+<form class="layui-form" action="" lay-filter="example">
+    <div class="layui-form-item">
+        <label class="layui-form-label">日期</label>
+        <div class="layui-input-block">
+            <input type="text" name="createTime" id="createTime" th:value="${sick.createTime}" lay-verify="title" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-col-sm3">
+            <input type="text" name="sickName" id="sickName" th:value="${sick.sickName}" class="layui-input">
+        </div>
+        <div class="layui-col-sm3">
+            <div class="layui-input-wrap">
+                <input type="text" name="illnass" id="illness" th:value="${sick.illness}" lay-affix="clear" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="age" id="age" th:value="${sick.age}" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="1" title="男" th:checked="${sick.sex == 1}? 'true':'false'">
+                <input type="radio" name="sex" value="0" title="女" th:checked="${sick.sex == 0}? 'true':'false'">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证号码</label>
+            <div class="layui-input-block">
+                <input type="text" name="papertypeCode" id="papertypeCode" th:value="${sick.papertypeCode}" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号码</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" id="phone" th:value="${sick.phone}" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">现居地</label>
+            <div class="layui-input-block">
+                <input type="text" name="address" id="address" th:value="${sick.address}" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">就诊卡号</label>
+            <div class="layui-input-block">
+                <input type="text" name="sickCode" th:value="${sick.sickCode}" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">医保类型</label>
+            <div class="layui-input-block">
+                <input type="text" name="sickPapertype" id="sickPapertype" th:value="${sick.sickPapertype}" lay-verify="title" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">取消</button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">确定</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    layui.use(['form','jquery'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var $ = layui.jquery;
+        var num = document.getElementById("sickPapertype");
+
+        var sum = 1;
+
+        function numbers(sum){
+            switch (sum) {
+                case 0:
+                    return '自费';
+                case 1:
+                    return '医保';
+                default:
+                    return '';
+            }
+        }
+
+        num.value = numbers(sum)
+        // 提交事件
+        form.on('submit(demo1)', function(data){
+            console.log(data)
+            parent.location.reload();
+        });
+    });
+</script>
+
+</body>
+</html>

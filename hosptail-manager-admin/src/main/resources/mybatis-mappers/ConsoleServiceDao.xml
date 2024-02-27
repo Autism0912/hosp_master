@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.console.dao.ConsoleServiceDao">
+
+    <select id="findNum" resultType="com.hxzy.hospital.dev.console.dto.ConsoleDto">
+        SELECT
+            userCount.userCount,
+            sickCount.receive,
+            treatCost.pay,
+            rePeopleNum.rePeopleNum
+        FROM
+                (SELECT count(user_id) as userCount FROM `my_user`) AS userCount,
+                (SELECT count(id) as receive FROM hos_sick) AS sickCount,
+                (SELECT ROUND(SUM(cost), 2) as pay FROM hos_treat) AS treatCost,
+                (SELECT count(see_count) as rePeopleNum FROM `hos_order` where see_count>1) as rePeopleNum
+    </select>
+
+    <select id="findByWeek" resultType="com.hxzy.hospital.dev.console.dto.ConsoleDto">
+
+    </select>
+    <select id="findByMonth" resultType="com.hxzy.hospital.dev.console.dto.ConsoleDto">
+
+    </select>
+    <select id="findByQuater" resultType="com.hxzy.hospital.dev.console.dto.ConsoleDto">
+
+    </select>
+    <select id="findByYear" resultType="com.hxzy.hospital.dev.console.dto.ConsoleDto">
+
+    </select>
+    <select id="findByDay" resultType="com.hxzy.hospital.dev.console.dto.TableOfVisitDto">
+        select date_format(create_time, '%Y-%m-%d') dat, SUM(cost) money
+        from hos_treat
+        group by date_format(create_time, '%Y-%m-%d')
+        order by create_time asc
+    </select>
+</mapper>
+

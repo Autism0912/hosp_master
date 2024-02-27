@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzy.hospital.dev.report.mapper.HosRepoPicMapper">
+
+    <resultMap id="BaseResultMap" type="com.hxzy.hospital.dev.report.entity.HosRepoPic">
+            <result property="picId" column="pic_id" jdbcType="INTEGER"/>
+            <result property="repoId" column="repo_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pic_id,repo_id
+    </sql>
+</mapper>

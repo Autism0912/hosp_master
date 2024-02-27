@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <header th:replace="header::html"></header>
+</head>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>组织角色</legend>
+</fieldset>
+
+<div class="layui-tab" >
+    <ul class="layui-tab-title">
+        <li class="layui-this"style="background-color: #0046f7">科室</li>
+        <li>角色</li>
+
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <table id="dept-table" lay-filter="dept-table"></table>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab-item"><div class="layui-card">
+            <div class="layui-card-body">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"style="font-size: 120%">系统角色</label>
+<!--                        <div class="layui-input-inline">-->
+<!--                            <input type="text" name="realName" placeholder="" class="layui-input">-->
+<!--                        </div>-->
+<!--                        <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="role-query">-->
+<!--                            <i class="layui-icon layui-icon-search"></i>-->
+<!--                            查询-->
+<!--                        </button>-->
+<!--                        <button type="reset" class="pear-btn pear-btn-md">-->
+<!--                            <i class="layui-icon layui-icon-refresh"></i>-->
+<!--                            重置-->
+<!--                        </button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <table id="role-table" lay-filter="role-table"></table>
+                </div>
+            </div>
+
+
+            <script type="text/html" id="role-toolbar">
+
+                <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
+                    <i class="layui-icon layui-icon-add-1"></i>
+                    新增
+                </button>
+
+                <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
+                    <i class="layui-icon layui-icon-delete"></i>
+                    批量删除
+                </button>
+            </script>
+            <script type="text/html" id="role-status" >
+                <input type="checkbox"  name="status"   lay-skin="switch" lay-text="启用|禁掉" lay-filter="role-status" value="{{d.id}}" mid="{{d.isDel}}"{{d.isDel == '1' ? 'checked' : '' }}>
+            </script>
+            <script type="text/html" id="role-bar">
+                <button lay-event="update" style="color: blue">
+                    <i class="layui-btn layui-icon-vercode"></i>
+                    修改
+                </button>
+                <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="remove" value="{{d.id}}"lay-filter="hosUser-del" lay-skin="switch">
+                    <i class="layui-icon layui-icon-delete"></i>
+                    删除
+                </button>
+                <button lay-event="Rights" style="color: blue">
+<!--                    <i class="layui-btn layui-icon-delete"></i>-->
+                    权限管理
+                </button>
+            </script>
+        </div>
+        <div class="layui-tab-item"><div class="layui-row layui-col-space30" id="demo-box" style="margin: 0 auto; max-width: 970px;">
+
+            <div class="layui-col-xs9 layui-col-md3">
+                <div class="layui-panel">
+                    <ul class="layui-menu" id="demo1">
+                        <li lay-options="{id: 100}">
+                            <div class="layui-menu-body-title">menu item 1</div>
+                        </li>
+                        <li lay-options="{id: 101}">
+                            <div class="layui-menu-body-title">
+                                <a href="">menu item 2 <span class="layui-badge-dot"></span></a>
+                            </div>
+                        </li>
+                        <li class="layui-menu-item-divider"></li>
+                        <li class="layui-menu-item-group layui-menu-item-down" lay-options="{type: 'group'}">
+                            <div class="layui-menu-body-title">
+                                menu group <i class="layui-icon layui-icon-up"></i>
+                            </div>
+                            <ul>
+                                <li lay-options="{id: 103}">
+                                    <div class="layui-menu-body-title">menu item 3-1</div>
+                                </li>
+                                <li class="layui-menu-item-group" lay-options="{type: 'group', isAllowSpread: false}">
+                                    <div class="layui-menu-body-title">menu group 2</div>
+                                    <ul>
+                                        <li class="layui-menu-item-checked">
+                                            <div class="layui-menu-body-title">menu item 3-2-1</div>
+                                        </li>
+                                        <li><div class="layui-menu-body-title">menu item 3-2-2</div></li>
+                                    </ul>
+                                </li>
+                                <li><div class="layui-menu-body-title">menu item 3-3</div></li>
+                            </ul>
+                        </li>
+                        <li class="layui-menu-item-divider"></li>
+                        <li><div class="layui-menu-body-title">menu item 4 <span class="layui-badge">1</span></div></li>
+                        <li><div class="layui-menu-body-title">menu item 5</div></li>
+                        <li><div class="layui-menu-body-title">menu item 6</div></li>
+                        <li class="layui-menu-item-parent" lay-options="{type: 'parent'}">
+                            <div class="layui-menu-body-title">
+                                menu item 7 Children
+                                <i class="layui-icon layui-icon-right"></i>
+                            </div>
+                            <div class="layui-panel layui-menu-body-panel">
+                                <ul>
+                                    <li class="layui-menu-item-parent" lay-options="{type: 'parent'}">
+                                        <div class="layui-menu-body-title">
+                                            menu item 7-1
+                                            <i class="layui-icon layui-icon-right"></i>
+                                        </div>
+                                        <div class="layui-panel layui-menu-body-panel">
+                                            <ul>
+                                                <li><div class="layui-menu-body-title">menu item 7-2-1</div></li>
+                                                <li><div class="layui-menu-body-title">menu item 7-2-2</div></li>
+                                                <li><div class="layui-menu-body-title">menu item 7-2-3</div></li>
+                                                <li><div class="layui-menu-body-title">menu item 7-2-4</div></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li><div class="layui-menu-body-title">menu item 7-2</div></li>
+                                    <li><div class="layui-menu-body-title">menu item 7-3</div></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>menu item 8</li>
+                        <li class="layui-menu-item-divider"></li>
+                        <li class="layui-menu-item-group" lay-options="{type: 'group'}">
+                            <div class="layui-menu-body-title">menu group 9</div>
+                            <ul>
+                                <li><div class="layui-menu-body-title">menu item 9-1</div></li>
+                                <li class="layui-menu-item-parent" lay-options="{type: 'parent'}">
+                                    <div class="layui-menu-body-title">
+                                        menu item 9-2
+                                        <i class="layui-icon layui-icon-right"></i>
+                                    </div>
+                                    <div class="layui-panel layui-menu-body-panel">
+                                        <ul>
+                                            <li><div class="layui-menu-body-title">menu item 9-2-1</div></li>
+                                            <li><div class="layui-menu-body-title">menu item 9-2-2</div></li>
+                                            <li><div class="layui-menu-body-title">menu item 9-2-3</div></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><div class="layui-menu-body-title">menu item 9-31</div></li>
+                            </ul>
+                        </li>
+                        <li class="layui-menu-item-divider"></li>
+                        <li><div class="layui-menu-body-title">menu item 10</div></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="layui-col-xs9 layui-col-md3">
+                <div class="layui-panel">
+                    <ul class="layui-menu" id="docDemoMenu1">*
+                        <li lay-options="{id: 100}">
+                            <div class="layui-menu-body-title">menu item 1</div>
+                        </li>
+                        <li lay-options="{id: 101}">
+                            <div class="layui-menu-body-title">
+                                <a href="">menu item 2 <span class="layui-badge-dot"></span></a>
+                            </div>
+                        </li>
+                        <li class="layui-menu-item-divider"></li>
+                        <li class="layui-menu-item-group layui-menu-item-down" lay-options="{type: 'group', isAllowSpread: false}">
+                            <div class="layui-menu-body-title">
+                                menu group
+                            </div>
+                            <ul>
+                                <li lay-options="{id: 1031}"><div class="layui-menu-body-title">menu item 3-1</div></li>
+                                <li lay-options="{id: 1032}">
+                                    <div class="layui-menu-body-title">menu item 3-2</div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="layui-menu-item-divider"></li>
+                        <li class="layui-menu-item-group layui-menu-item-down" lay-options="{type: 'group', isAllowSpread: false}">
+                            <div class="layui-menu-body-title">menu group 2</div>
+                            <ul>
+                                <li lay-options="{id: 1031}"><div class="layui-menu-body-title">menu item 4-1</div></li>
+                                <li lay-options="{id: 1032}">
+                                    <div class="layui-menu-body-title">menu item 4-2</div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="layui-menu-item-divider"></li>
+                        <li class="layui-menu-item-parent" lay-options="{type: 'parent'}">
+                            <div class="layui-menu-body-title">
+                                menu item 5
+                                <i class="layui-icon layui-icon-right"></i>
+                            </div>
+                            <div class="layui-panel layui-menu-body-panel">
+                                <ul>
+                                    <li lay-options="{id: 1051}">
+                                        <div class="layui-menu-body-title">menu item 5-1</div>
+                                    </li>
+                                    <li lay-options="{id: 1051}">
+                                        <div class="layui-menu-body-title">menu item 5-2</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li lay-options="{id: 106}">
+                            <div class="layui-menu-body-title">menu item 6</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>  </div>
+        <div class="layui-tab-item">内容4</div>
+        <div class="layui-tab-item">内容5</div>
+    </div>
+</div>
+<body class="pear-container">
+<script type="text/html" id="dept-status">
+    <div class="layui-btn-container"lay-event="edit">
+        <button type="button" class="layui-btn">新增</button>
+    </div>
+</script>
+
+
+
+
+<script type="text/html" id="icon">
+    <i class="layui-icon {{d.icon}}"></i>
+</script>
+<script>
+<!--    科室-->
+    layui.use(['table','form','jquery','treetable'],function () {
+
+        let table = layui.table;
+        let form = layui.form;
+        let $ = layui.jquery;
+        let treetable = layui.treetable;
+
+        var insTb  =  treetable.render({
+            treeColIndex: 1,//树形图标显示在第几列
+            treeSpid: 0,//最上级的父级id
+            treeIdName: 'deptId', //id字段的名称
+            treePidName: 'parentId',//父级节点字段
+            skin:'line',
+            method:'post',
+            // treeDefaultClose: true,
+            toolbar:'#dept-toolbar',
+            elem: '#dept-table',
+            url: '/api/dept',
+            page: false,
+            cols: [
+                [
+                    {type: 'radio'},
+                    {field: 'deptName', minWidth: 200, title: ''},
+                    // {field: 'deptName', minWidth: 200, title: '名称'},
+                    // {field: 'sort', title: '排序'},
+                    {field: 'status', templet:'#dept-status'},
+                    // {title: '创建时间', field: 'createTime', align:'center',templet:'#dept-time'},
+                    // {field: 'updateTime', title: '更新时间', align:'center',templet:'#dept-time'},
+
+                    // {title: '',templet: '#dept-status', width: 150, align: 'center'},
+                ]
+            ]
+        });
+
+        table.on('tool(dept-table)',function(obj){
+            if (obj.event === 'remove') {
+                window.remove(obj);
+            } else if (obj.event === 'edit') {
+                window.edit(obj);
+            }
+        })
+
+        table.on('toolbar(dept-table)', function(obj){
+            if(obj.event === 'add'){
+                window.add();
+            } else if(obj.event === 'refresh'){
+                window.refresh();
+            } else if(obj.event === 'expandAll'){
+                treetable.expandAll("#dept-table");
+            } else if(obj.event === 'foldAll'){
+                treetable.foldAll("#dept-table");
+            }
+        });
+        form.on('switch(dept-status)', function(obj) {
+            layer.confirm(obj.elem.checked ? '确定解禁这个人?' : '确定封掉这个人?', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                var isDel = obj.elem.checked ? 1 : 0;
+                var data = {
+                    id: obj,
+                    isDel: isDel
+                }
+                let loading = layer.load();
+                $.ajax({
+                    // url:'/api/dept/changeStatus',
+                    url:'/api/organizationalRole/deptParent',
+                    data:JSON.stringify(data),
+                    page: true,
+                    dataType:'json',
+                    contentType:'application/json',
+                    type:'put',
+                    success:function(result){
+                        layer.close(loading);
+                        if(result.success){
+                            layer.msg(result.msg,{icon:1,time:1000},function(){
+                                obj.del();
+                                layui.table.reload("dept-table");
+                            });
+                        }else{
+                            layer.msg(result.msg,{icon:2,time:1000});
+                            layui.table.reload("dept-table");
+                        }
+                    }
+                })
+            });
+        });
+        form.on('submit(dept-query)', function(data){ //模糊查询方法
+            var formData = data.field;
+            var name = formData.name;
+            var status = formData.status;
+            table.reload(('dept-table'),{ // table重载
+                treeColIndex: 1,//树形图标显示在第几列
+                treeSpid: 0,//最上级的父级id
+                treeIdName: 'deptId', //id字段的名称
+                treePidName: 'parentId',//父级节点字段
+                skin:'line',
+                treeDefaultClose: true,
+                toolbar:'#dept-toolbar',
+                elem: '#dept-table',
+                where: {//这里传参  向后台
+                    name: name,
+                    status: status
+                    //可传多个参数到后台...  ，分隔
+                }
+                , url: '/api/dept'//后台做模糊搜索接口路径
+                , method: 'get'
+            });
+            return false;
+        });
+        window.add = function(){
+            layer.open({
+                type: 2,
+                title: '新增',
+                shade: 0.1,
+                area: ['450px', '500px'],
+                content: '/api/role/add'
+            });
+        }
+
+        window.edit = function(obj){
+            var data = obj.data;
+            layer.open({
+                type: 2,
+                title: '新增科室',
+                shade: 0.1,
+                area: ['450px', '500px'],
+                content: '/api/organizationalRole/add/?deptId='+data.deptId
+            });
+        }
+        window.remove = function(obj){
+            var data = obj.data;
+            layer.confirm('确定删除吗,此操作不能撤销！', {icon: 3, title:'提示'}, function(index){
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: "/api/organizationalRole/?id=" + data.deptId,
+                    dataType:'json',
+                    type:'delete',
+                    success:function(result){
+                        layer.close(loading);
+                        if(result.success){
+                            layer.msg(result.msg,{icon:1,time:1000},function(){
+                                obj.del();
+                            });
+                        }else{
+                            layer.msg(result.msg,{icon:2,time:1000});
+                        }
+                    }
+                })
+            });
+        }
+    })
+</script>
+<script>
+    layui.use('element', function(){
+        var $ = layui.jquery
+            ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            tabAdd: function(){
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项'+ (Math.random()*1000|0) //用于演示
+                    ,content: '内容'+ (Math.random()*1000|0)
+                    ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            ,tabDelete: function(othis){
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            }
+            ,tabChange: function(){
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+
+        $('.site-demo-active').on('click', function(){
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function(elem){
+            location.hash = 'test='+ $(this).attr('lay-id');
+        });
+
+    });
+</script>
+<script>
+    layui.use(['table','form','jquery'],function () {
+        let table = layui.table;
+        let form = layui.form;
+        let $ = layui.jquery;
+
+        let MODULE_PATH = "operate/";
+
+        let cols = [
+            [
+                {type:'checkbox'},
+                {title: '序列号',field: 'id',align: 'center',width: 75},
+                {title: '角色代码',field: 'userCode',align: 'center',width: 75},
+                {title: '角色名', field: 'name', align:'center', width:70},
+                {title: '描述', field: 'userMemo', align:'center', width:110},
+                {title: '创建时间', field: 'createTime', align:'center', width:110},
+                {title: '状态', field: 'isDel', align:'center',width: 75,templet:'#role-status'},
+                {title: '操作', toolbar: '#role-bar', align:'center', width:300},
+
+            ]
+        ]
+        var tableIns = table.render({
+            elem: '#role-table',
+            url: '/api/hosUser',
+            page: true ,
+            cols: cols ,
+            skin: 'line',
+            toolbar: '#role-toolbar',
+            defaultToolbar: [{
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports']
+        });
+
+        table.on('tool(role-table)', function(obj){
+            if(obj.event === 'remove'){
+                window.remove(obj);
+            } else if(obj.event === 'edit'){
+                window.edit(obj);
+            }
+            else if(obj.event === 'power'){
+                window.power(obj);
+            }else if (obj.event==='update'){
+                window.update(obj);
+            }else if (obj.event === 'Rights'){
+                window.Rights(obj);
+            }
+        });
+
+        table.on('toolbar(role-table)', function(obj){
+            if(obj.event === 'add'){
+                window.add();
+            } else if(obj.event === 'refresh'){
+                window.refresh();
+            } else if(obj.event === 'batchRemove'){
+                window.batchRemove(obj);
+            }else if (obj.event === 'Rights'){
+                window.Rights();
+            }
+        });
+        window.Rights=function (obj) {
+            var data= obj.data
+            layer.open({
+                type: 2,
+                title: '权限管理',
+                shade: 0.1,
+                area: ['500 px', '600px'],
+                content: '/api/organizationalRole/rights/?id='+data.id
+            });
+        }
+        form.on('submit(role-query)', function(data){
+            var formData = data.field;
+            var realName = formData.realName;
+            tableIns.reload({
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {//这里传参  向后台
+                    queryName: realName,
+                    //可传多个参数到后台...  ，分隔
+                }
+                , url: '/api/role'//后台做模糊搜索接口路径
+                , method: 'get'
+            });
+            return false;
+        });
+        form.on('switch(hosUser-del)'),function (obj){
+            var id=obj.value;
+            layer.confirm('确定删除吗,此操作不能撤销！', {icon: 3, title:'提示'}, function(index){
+                $.ajax({
+                    // url:'/api/dept/changeStatus',
+                    url:'/api/organizationalRole/del',
+                    data:JSON.stringify(id),
+                    page: true,
+                    dataType:'json',
+                    contentType:'application/json',
+                    type:'delete',
+                    success:function(result){
+                        layer.close(loading);
+                        if(result.success){
+                            layer.msg(result.msg,{icon:1,time:1000},function(){
+                                obj.del();
+                                layui.table.reload("dept-table");
+                            });
+                        }else{
+                            layer.msg(result.msg,{icon:2,time:1000});
+                            layui.table.reload("dept-table");
+                        }
+                    }
+                })
+            })
+
+        }
+        form.on('switch(role-status)', function(obj){
+            // layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+            layer.confirm(obj.elem.checked ? '确定解封这个人?' : '确定要封掉这个人?', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                var isDel = obj.elem.checked ? 1 : 0;
+                var data ={
+                    id: obj.value,
+                    isDel: isDel
+                }
+                let loading = layer.load();
+                $.ajax({
+                    // url:'/api/dept/changeStatus',
+                    url:'/api/organizationalRole/deptParent',
+                    data:JSON.stringify(data),
+                    page: true,
+                    dataType:'json',
+                    contentType:'application/json',
+                    type:'put',
+                    success:function(result){
+                        layer.close(loading);
+                        if(result.success){
+                            layer.msg(result.msg,{icon:1,time:1000},function(){
+                                obj.del();
+                                layui.table.reload("dept-table");
+                            });
+                        }else{
+                            layer.msg(result.msg,{icon:2,time:1000});
+                            layui.table.reload("dept-table");
+                        }
+                    }
+                })
+            });
+        });
+
+        window.add = function(){
+            layer.open({
+                type: 2,
+                title: '新增',
+                shade: 0.1,
+                area: ['500px', '600px'],
+                content: '/api/role/add'
+            });
+        }
+        window.update=function (obj){
+            var  data=obj.data;
+            layer.open({
+                type: 2,
+                title: '修改',
+                shade: 0.1,
+                area: ['500px', '600px'],
+                content: '/api/organizationalRole/update/?id='+data.id
+            })
+        }
+        window.power = function(obj){
+            var data = obj.data;
+            layer.open({
+                type: 2,
+                title: '修改角色信息',
+                shade: 0.1,
+                area: ['500px', '600px'],
+                content: '/api/role/edit/dataScope/?roleId='+data.roleId
+            });
+        }
+
+        window.remove = function(obj){
+            var data = obj.data;
+            layer.confirm('确定要删除该角色', {icon: 3, title:'提示'}, function(index){
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: '/api/role',
+                    dataType:'json',
+                    data:{roleId:data.roleId},
+                    type:'delete',
+                    success:function(result){
+                        layer.close(loading);
+                        if(result.success){
+                            layer.msg(result.msg,{icon:1,time:1000},function(){
+                                obj.del();
+                            });
+                        }else{
+                            layer.msg(result.msg,{icon:2,time:1000});
+                        }
+                    }
+                })
+            });
+        }
+
+        window.batchRemove = function(obj){
+            let data = table.checkStatus(obj.config.id).data;
+            if(data.length === 0){
+                layer.msg("未选中数据",{icon:3,time:1000});
+                return false;
+            }
+            let ids = "";
+            for(let i = 0;i<data.length;i++){
+                ids += data[i].userId+",";
+            }
+            ids = ids.substr(0,ids.length-1);
+            layer.confirm('确定要删除这些用户', {icon: 3, title:'提示'}, function(index){
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: MODULE_PATH+"batchRemove/"+ids,
+                    dataType:'json',
+                    type:'delete',
+                    success:function(result){
+                        layer.close(loading);
+                        if(result.success){
+                            layer.msg(result.msg,{icon:1,time:1000},function(){
+                                table.reload('user-table');
+                            });
+                        }else{
+                            layer.msg(result.msg,{icon:2,time:1000});
+                        }
+                    }
+                })
+            });
+        }
+
+        window.refresh = function(){
+            table.reload('role-table');
+        }
+    })
+</script>
+</body>
+</html>

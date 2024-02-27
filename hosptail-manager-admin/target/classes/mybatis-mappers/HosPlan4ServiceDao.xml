@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.manage.dao.HosPlan4ServiceDao">
+
+    <select id="find" resultType="com.hxzy.hospital.dev.manage.dto.PlanDto">
+        select instrum.name     as instrumName,
+               energy,
+               plan.treat_time,
+               plan.cost_time,
+               nurse.nurse_name as nurseName,
+               user.name        as userName,
+               ord.see_count    as seeCount,
+               repo.diag_memo   as diagMemo,
+               repo.doc_diag    as docDiag,
+               dept_name
+        from hos_plan as plan
+                 inner join hos_instrum as instrum
+                            on plan.instrum_id = instrum.id
+                 INNER JOIN hos_nurse as nurse
+                            on plan.nurse_id = nurse.id
+                 inner join hos_sick as sick
+                            on plan.sick_id = sick.id
+                 inner join hos_repo as repo
+                            on sick.sick_code = repo.sick_code
+                 INNER JOIN hos_user as user
+        on plan.doc_id= user.id
+            inner join my_dept as dept
+            on repo.dept_id = dept.dept_id
+            inner join hos_order as ord
+            on repo.sick_code = ord.sick_code
+        where plan.sick_id = #{id}
+    </select>
+</mapper>

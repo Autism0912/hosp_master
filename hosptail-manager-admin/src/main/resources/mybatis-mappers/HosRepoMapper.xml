@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzy.hospital.dev.report.mapper.HosRepoMapper">
+
+    <resultMap id="BaseResultMap" type="com.hxzy.hospital.dev.report.entity.HosRepo">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="repoName" column="repo_name" jdbcType="VARCHAR"/>
+            <result property="des" column="des" jdbcType="INTEGER"/>
+            <result property="illDes" column="ill_des" jdbcType="VARCHAR"/>
+            <result property="docDiag" column="doc_diag" jdbcType="VARCHAR"/>
+            <result property="illHistory" column="ill_history" jdbcType="VARCHAR"/>
+            <result property="checkMemo" column="check_memo" jdbcType="VARCHAR"/>
+            <result property="diagMemo" column="diag_memo" jdbcType="VARCHAR"/>
+            <result property="treatId" column="treat_id" jdbcType="INTEGER"/>
+            <result property="sickCode" column="sick_code" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+            <result property="isCommit" column="is_commit" jdbcType="INTEGER"/>
+            <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
+            <result property="docId" column="doc_id" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="costId" column="cost_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,repo_name,des,
+        ill_des,doc_diag,ill_history,
+        check_memo,diag_memo,treat_id,
+        sick_code,create_time,update_time,
+        is_del,is_commit,dept_id,
+        doc_id,status,cost_id
+    </sql>
+    <insert id="addRepo">
+        INSERT INTO hos_repo(repo_name, des, check_memo, diag_memo, create_time, is_del, is_commit, dept_id,
+                             doc_id, `status`, cost_id)
+        VALUES (#{repoName}, #{des}, #{checkMemo}, #{diagMemo}, #{createTime}, #{isDel}, #{isCommit},
+                #{deptId}, #{docId}, #{status}, #{costId})
+    </insert>
+    <update id="updateRepo">
+        UPDATE hos_repo
+        <set>
+            <if test="repoName != null">
+                repo_name = #{repoName},
+            </if>
+            <if test="checkMemo != null">
+                check_memo = #{checkMemo},
+            </if>
+            <if test="diagMemo != null">
+                diag_memo = #{diagMemo},
+            </if>
+            update_time = #{updateTime},
+            status = 0
+        </set>
+        WHERE id=#{id}
+    </update>
+    <update id="auditRepo">
+        UPDATE hos_repo SET update_time = #{updateTime},status = #{status}
+        WHERE id=#{id}
+    </update>
+    <select id="selList" resultType="com.hxzy.hospital.dev.report.entity.HosRepo">
+        SELECT id,cost_id, dept_id, create_time, repo_name, update_time, doc_id, `status`
+        FROM hos_repo
+        <where>
+            <if test="costId != null and costId != ''">
+                AND cost_id = #{costId}
+            </if>
+            <if test="deptId!= null and deptId != ''">
+                AND dept_id = #{deptId}
+            </if>
+            <if test="docId!= null and docId != ''">
+                AND doc_id = #{docId}
+            </if>
+            <if test="createTime!= null and createTime != ''">
+                AND create_time like CONCAT('%', #{createTime}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

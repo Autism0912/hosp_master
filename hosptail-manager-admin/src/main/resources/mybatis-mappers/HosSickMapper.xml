@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxzy.hospital.dev.patinceMan.mapper.HosSickMapper">
+
+    <resultMap id="BaseResultMap" type="com.hxzy.hospital.dev.patinceMan.entity.HosSick">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="sickName" column="sick_name" jdbcType="VARCHAR"/>
+            <result property="sickPapertype" column="sick_papertype" jdbcType="INTEGER"/>
+            <result property="papertypeCode" column="papertype_code" jdbcType="VARCHAR"/>
+            <result property="sickSex" column="sick_sex" jdbcType="INTEGER"/>
+            <result property="privanceId" column="privance_id" jdbcType="INTEGER"/>
+            <result property="cityId" column="city_id" jdbcType="INTEGER"/>
+            <result property="areaId" column="area_id" jdbcType="INTEGER"/>
+            <result property="sickAddr" column="sick_addr" jdbcType="VARCHAR"/>
+            <result property="sickPhone" column="sick_phone" jdbcType="VARCHAR"/>
+            <result property="sickCode" column="sick_code" jdbcType="VARCHAR"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="isOneself" column="is_oneself" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+            <result property="costId" column="cost_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sick_name,sick_papertype,
+        papertype_code,sick_sex,privance_id,
+        city_id,area_id,sick_addr,
+        sick_phone,sick_code,username,
+        is_oneself,create_time,update_time,
+        is_del,cost_id
+    </sql>
+
+    <select id="selectSickAll" resultType="com.hxzy.hospital.dev.patinceMan.entity.HosSick">
+        SELECT * FROM hos_sick
+    </select>
+    <select id="findByName" resultType="com.hxzy.hospital.dev.patinceMan.entity.HosSick">
+        SELECT * FROM hos_sick WHERE sick_name like CONCAT('%', #{sickName}, '%')
+    </select>
+    <select id="fandByCostId" resultType="com.hxzy.hospital.dev.patinceMan.entity.HosSick">
+        SELECT * FROM hos_sick WHERE cost_id=#{CostId}
+    </select>
+</mapper>

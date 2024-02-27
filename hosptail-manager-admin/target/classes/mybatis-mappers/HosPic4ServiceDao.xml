@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.manage.dao.HosPic4ServiceDao">
+
+    <select id="find" resultType="com.hxzy.hospital.dev.user.entity.HosPic">
+        select pic.path
+        from hos_pic as pic
+                 inner join hos_repo_pic as repo_pic
+                            on pic.id = repo_pic.pic_id
+                 inner join hos_repo as repo
+                            on repo.id = repo_pic.repo_id
+                 inner join hos_sick as sick
+                            on sick.sick_code = repo.sick_code
+        where sick.sick_code = #{sickCode}
+    </select>
+</mapper>

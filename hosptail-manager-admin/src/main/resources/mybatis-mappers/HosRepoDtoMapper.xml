@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.report.mapper.HosRepoDtoMapper">
+
+    <select id="findById" resultType="com.hxzy.hospital.dev.report.dto.HosRepoDto">
+        SELECT r.id,r.cost_id costId,s.sick_name sickName,r.dept_id deptId,r.doc_id docId,r.create_time createTime
+             ,r.repo_name repoName,r.check_memo checkMemo,r.diag_memo diagMemo,d.dept_name deptName,u.name docName
+             FROM `hos_repo` r
+             INNER JOIN hos_sick s ON r.cost_id=s.cost_id
+             INNER JOIN hos_user u ON r.doc_id=u.id
+             INNER JOIN my_dept d ON r.dept_id=d.dept_id
+        WHERE r.id=#{id}
+    </select>
+</mapper>

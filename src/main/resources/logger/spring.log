@@ -1,0 +1,43 @@
+2024-02-27 22:42:11.249  INFO 20932 --- [restartedMain] c.hxzy.hospital.dev.HospitalManagerApp   : Starting HospitalManagerApp on 龙强 with PID 20932 (E:\Java Process 3~4\hosp_master\hosptail-manager-admin\target\classes started by 29503 in E:\Java Process 3~4\hosp_master)
+2024-02-27 22:42:11.253  INFO 20932 --- [restartedMain] c.hxzy.hospital.dev.HospitalManagerApp   : The following profiles are active: dev
+2024-02-27 22:42:11.290  INFO 20932 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-02-27 22:42:11.290  INFO 20932 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-02-27 22:42:11.960  INFO 20932 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-02-27 22:42:11.961  INFO 20932 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-02-27 22:42:11.992  INFO 20932 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22ms. Found 0 Redis repository interfaces.
+2024-02-27 22:42:12.341  INFO 20932 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@c35c969' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-02-27 22:42:12.348  INFO 20932 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2024-02-27 22:42:12.718  INFO 20932 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2024-02-27 22:42:12.725  INFO 20932 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-02-27 22:42:12.725  INFO 20932 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+2024-02-27 22:42:12.840  INFO 20932 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-02-27 22:42:12.841  INFO 20932 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1550 ms
+2024-02-27 22:42:12.938  INFO 20932 --- [restartedMain] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2024-02-27 22:42:14.923  INFO 20932 --- [restartedMain] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2024-02-27 22:42:15.251  WARN 20932 --- [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Warn: Could not find @TableId in Class: com.hxzy.hospital.dev.console.entity.MyUser.
+2024-02-27 22:42:15.304  WARN 20932 --- [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Warn: Could not find @TableId in Class: com.hxzy.hospital.dev.admin.entity.MyDept.
+2024-02-27 22:42:15.485  WARN 20932 --- [restartedMain] c.b.m.core.injector.AbstractMethod       : [com.hxzy.hospital.dev.admin.dao.HosUserDao.delete] Has been loaded by XML or SqlProvider or Mybatis's Annotation, so ignoring this injection for [class com.baomidou.mybatisplus.core.injector.methods.Delete]
+2024-02-27 22:42:16.232  WARN 20932 --- [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Warn: Could not find @TableId in Class: com.hxzy.hospital.dev.report.entity.HosRepoPic.
+2024-02-27 22:42:16.441  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-resources/**', GET], []
+2024-02-27 22:42:16.441  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/PearAdmin/**', GET], []
+2024-02-27 22:42:16.441  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/component/**', GET], []
+2024-02-27 22:42:16.441  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/admin/**', GET], []
+2024-02-27 22:42:16.441  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/**/*.html', GET], []
+2024-02-27 22:42:16.441  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/**/*.css', GET], []
+2024-02-27 22:42:16.441  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/**/*.js', GET], []
+2024-02-27 22:42:16.442  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-ui.html', GET], []
+2024-02-27 22:42:16.442  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/webjars/**', GET], []
+2024-02-27 22:42:16.442  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/v2/**', GET], []
+2024-02-27 22:42:16.442  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/druid/**', GET], []
+2024-02-27 22:42:16.476  INFO 20932 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a250549, org.springframework.security.web.context.SecurityContextPersistenceFilter@17fb589, org.springframework.security.web.header.HeaderWriterFilter@6cdad4e5, org.springframework.security.web.authentication.logout.LogoutFilter@23d9bfbf, com.hxzy.hospital.dev.security.filter.VerifyCodeFilter@332e43, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@45663c88, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@fa3e521, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@60ae5b46, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@62cb12a9, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@575b1632, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2f68e5b3, org.springframework.security.web.session.SessionManagementFilter@4a98d0af, org.springframework.security.web.access.ExceptionTranslationFilter@4a08cdf8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@63610552]
+2024-02-27 22:42:16.580  INFO 20932 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2024-02-27 22:42:16.654  INFO 20932 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-02-27 22:42:17.197  INFO 20932 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-02-27 22:42:17.238  INFO 20932 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2024-02-27 22:42:17.247  INFO 20932 --- [restartedMain] c.hxzy.hospital.dev.HospitalManagerApp   : Started HospitalManagerApp in 6.258 seconds (JVM running for 7.373)
+2024-02-27 22:42:52.259  INFO 20932 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-27 22:42:52.260  INFO 20932 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-02-27 22:42:52.273  INFO 20932 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2024-02-27 23:10:04.713  INFO 20932 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2024-02-27 23:10:04.716  INFO 20932 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2024-02-27 23:10:04.727  INFO 20932 --- [SpringContextShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed

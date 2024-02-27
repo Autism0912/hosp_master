@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.manage.dao.HosSick4ServiceDao">
+
+    <resultMap id="BaseResultMap" type="com.hxzy.hospital.dev.manage.dto.ManageDto">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="sickName" column="sick_name" jdbcType="VARCHAR"/>
+        <result property="sickPapertype" column="sick_papertype" jdbcType="INTEGER"/>
+        <result property="papertypeCode" column="papertype_code" jdbcType="VARCHAR"/>
+        <result property="sickSex" column="sick_sex" jdbcType="INTEGER"/>
+        <result property="privanceId" column="privance_id" jdbcType="INTEGER"/>
+        <result property="cityId" column="city_id" jdbcType="INTEGER"/>
+        <result property="areaId" column="area_id" jdbcType="INTEGER"/>
+        <result property="sickAddr" column="sick_addr" jdbcType="VARCHAR"/>
+        <result property="sickPhone" column="sick_phone" jdbcType="VARCHAR"/>
+        <result property="sickCode" column="sick_code" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="isOneself" column="is_oneself" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="costId" column="cost_id" jdbcType="INTEGER"/>
+        <result property="seeCount" column="see_count" jdbcType="INTEGER"/>
+        <result property="illness" column="illness" jdbcType="VARCHAR"/>
+    </resultMap>
+    <delete id="deleteBy">
+        delete sc,ord from hos_sick as sc
+        inner join hos_order as ord
+        on sc.cost_id = ord.cost_id
+        where sc.id=#{id}
+    </delete>
+    <select id="getAll" resultType="com.hxzy.hospital.dev.manage.dto.ManageDto"  resultMap="BaseResultMap">
+        select sc.id,sc.sick_name,ord.illness,sc.sick_sex as sex,sc.age,ord.see_count,sc.sick_phone as phone,sc.create_time from hos_sick as sc
+        inner join hos_order as ord
+        on sc.cost_id = ord.cost_id
+        <where>
+            <if test="id != null and id != ''">
+                sc.id=#{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND sc.sick_name like CONCAT('%', #{name}, '%')
+            </if>
+            <if test="time != null and time != ''">
+                AND sc.create_time like CONCAT('%', #{time}, '%')
+            </if>
+            <if test="illness != null and illness != ''">
+                AND ord.illness like CONCAT('%', #{illness}, '%')
+            </if>
+
+        </where>
+    </select>
+    <select id="getByid" resultType="com.hxzy.hospital.dev.manage.dto.ManageDto">
+        select sc.sick_name,sc.sick_sex as sex,ord.see_count,sc.age,sc.sick_addr as address,sc.sick_phone as phone,sc.create_time,sc.papertype_code,sc.sick_papertype,sc.sick_code,
+               ord.illness from hos_sick as sc
+                                    inner join hos_order as ord
+                                               on sc.cost_id = ord.cost_id
+        where sc.id=#{id}
+    </select>
+    <select id="findAll" resultType="com.hxzy.hospital.dev.admin.entity.HosSick">
+        SELECT cost_id, sick_name
+        FROM hos_sick
+    </select>
+</mapper>

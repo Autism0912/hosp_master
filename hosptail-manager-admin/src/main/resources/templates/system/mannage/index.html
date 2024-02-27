@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <header th:replace="header::html">
+
+  </header>
+</head>
+<body style="background: #f1f5f5">
+ <div class="layui-bg-gray" style="padding: 30px;background: #ffffff">
+  <form class="layui-form" action="" onsubmit="return false">
+      <h4>基本信息</h4>
+        <div class="layui-form-item" style="display: flex;width: 350px;">
+          <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">建档日期：</label>
+          <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+            <input type="text" disabled="disabled" name="createTime" id="createTime" th:value="${medicalRecordVo.manageDto.createTime}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0;">
+          </div>
+        </div>
+        <div class="layui-form-item" style="display: flex;width: 350px;margin: 15px 0">
+          <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">姓名：</label>
+          <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+            <input type="text" disabled="disabled" name="sickName" id="sickName" th:value="${medicalRecordVo.manageDto.sickName}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+          </div>
+        </div>
+        <div class="layui-form-item" style="display: flex;width: 350px">
+          <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">年龄：</label>
+          <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+            <input type="text" disabled="disabled" name="age" id="age" th:value="${medicalRecordVo.manageDto.age}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+          </div>
+        </div>
+        <div class="layui-form-item" style="display: flex;width: 350px;margin: 15px 0" >
+          <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">出生日期：</label>
+          <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+            <input type="text" disabled="disabled" name="birthday" th:value="${medicalRecordVo.manageDto.papertypeCode.substring(6,14)}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+          </div>
+        </div>
+        <div class="layui-form-item" style="display: flex;width: 350px">
+          <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">医保类型：</label>
+          <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+            <input type="text" disabled="disabled" name="sickPapertype" id="sickPapertype" th:value="${medicalRecordVo.manageDto.sickPapertype}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+          </div>
+        </div>
+      </form>
+  <form class="layui-form" action="" onsubmit="return false" style="margin:-210px 0 0 1000px">
+    <div class="layui-form-item" style="display: flex;width: 350px;">
+      <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">就诊ID：</label>
+      <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+        <input type="text" disabled="disabled" name="sickCode" id="sickCode" th:value="${medicalRecordVo.manageDto.sickCode}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+      </div>
+    </div>
+    <div class="layui-form-item" style="display: flex;width: 350px;margin: 15px 0">
+      <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">身份证号：</label>
+      <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+        <input type="text" disabled="disabled" name="papertypeCode" id="papertypeCode" th:value="${medicalRecordVo.manageDto.papertypeCode}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+      </div>
+    </div>
+    <div class="layui-form-item" style="display: flex;width: 350px">
+      <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">性别：</label>
+      <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+        <input type="text" disabled="disabled"  name="sex" id="sex" th:value="${medicalRecordVo.manageDto.sex}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+      </div>
+    </div>
+    <div class="layui-form-item" style="display: flex;width: 350px;margin: 15px 0" >
+      <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">手机号：</label>
+      <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+        <input type="text" disabled="disabled" name="phone" id="phone" th:value="${medicalRecordVo.manageDto.phone}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+      </div>
+    </div>
+    <div class="layui-form-item" style="display: flex;width: 350px">
+      <label class="layui-form-label" style="display: inline-block;width: 150px;text-align: right;">地址：</label>
+      <div class="layui-input-inline" style="width: 400px;display: block;margin:0;">
+        <input type="text" disabled="disabled" name="address" id="address" th:value="${medicalRecordVo.manageDto.address}" required  lay-verify="required" autocomplete="off" class="layui-input" style="border: 0;outline: 0">
+      </div>
+    </div>
+  </form>
+  </div>
+  <div   class="layui-bg-gray" style="padding: 30px;background: #ffffff;margin: 20px 0" th:each="medicalRecordVo : ${medicalRecordVo.planDto}">
+    <p>就诊记录</p>
+    <div style="display: flex">
+    <p style="margin: 45px 0 0 0" id="times">[[${medicalRecordVo.treatTime}]]</p><p style="margin: 45px 0 0 40px">主治医生：[[${medicalRecordVo.userName}]]</p>
+      <button type="button" class="layui-btn layui-btn-normal layui-btn-xs layui-btn-radius" style="margin: 45px 0 0 20px;font-size: 13px">[[${medicalRecordVo.deptName}]]</button>
+    </div>
+    <div style="background: #f1f5f5;display:flex;flex-direction:column;margin: 15px 0 0 130px">
+      <div class="layui-form-label" style="display: flex;width: 500px;">
+        <label class="layui-form-label">诊断结果：</label>
+        <label class="layui-form-label">[[${medicalRecordVo.docDiag}]]</label>
+        <label class="layui-form-label">治疗次数：</label>
+        <label class="layui-form-label">第[[${medicalRecordVo.seeCount}]]次</label>
+      </div>
+      <div class="layui-form-label" style="display: flex;width: 2000px;margin:0">
+        <label class="layui-form-label">仪器：</label>
+        <label class="layui-form-label" style="display: inline-block;">[[${medicalRecordVo.instrumName}]]</label>
+        <label class="layui-form-label" >能量：</label>
+        <label class="layui-form-label">[[${medicalRecordVo.energy}]]</label>
+        <label class="layui-form-label" >时长：</label>
+        <label class="layui-form-label">[[${medicalRecordVo.costTime}]]</label>
+        <label class="layui-form-label" >医生：</label>
+        <label class="layui-form-label">[[${medicalRecordVo.userName}]]</label>
+        <label class="layui-form-label" >护士：</label>
+        <label class="layui-form-label">[[${medicalRecordVo.nurseName}]]</label>
+      </div>
+      <div class="layui-form-label" style="display: inline-block;width: 1500px;margin: 0">
+        <label class="layui-form-label">备注：</label>
+        <label class="layui-form-label"></label>
+      </div>
+      <div class="layui-form-label" style="width: 1500px;">
+        <label class="layui-form-label" style="display: inline-block;">诊疗图片：</label>
+        <img  th:each="picture:${medicalRecordVo.pictures}" style="width:100px;height:100px;margin-left:20px;float: left" th:src="${picture}"  />
+      </div>
+      <div class="layui-form-label" style="display: inline-block;width: 1500px;margin: 0">
+        <label class="layui-form-label" >诊疗评价：</label>
+        <label class="layui-form-label">[[${medicalRecordVo.diagMemo}]]</label>
+      </div>
+     </div>
+    </div>
+ <script>
+   layui.use(['form','jquery','flow','layer'], function() {
+     var form = layui.form;
+     var $ = layui.jquery
+     var flow = layui.flow;
+     var layer = layui.layer;
+     // 获取input元素
+     var numberInput = document.getElementById('sex');
+     var num = document.getElementById('sickPapertype');
+     var time = document.getElementById("times")
+     // 数据库传来的数字
+     var number = 1;
+     var sum = 1;
+
+
+
+     function numberToText(number) {
+       switch (number) {
+         case 0:
+           return '男';
+         case 1:
+           return '女';
+         default:
+           return '';
+       }
+     }
+     function numbers(sum){
+       switch (sum) {
+         case 0:
+           return '自费';
+         case 1:
+           return '医保';
+         default:
+           return '';
+       }
+     }
+     // 将数字转为文字并显示在input框中
+     numberInput.value = numberToText(number);
+     num.value = numbers(sum)
+   });
+ </script>
+</body>
+</html>

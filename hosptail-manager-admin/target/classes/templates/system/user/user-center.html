@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <header th:replace="header::html"></header>
+</head>
+<body>
+<div class="layui-tab layui-tab-card" lay-allowclose="true">
+    <ul class="layui-tab-title">
+        <li class="layui-this layui-btn layui-btn-normal">个人信息</li>
+        <li class="layui-btn layui-btn-normal">修改密码</li>
+    </ul>
+    <div class="layui-tab-content" style="height: 100%;">
+        <div class="layui-tab-item layui-show">
+            <form class="layui-form" method="get">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">头像</label>
+                    <div class="layui-input-inline">
+                        <img src="https://ts1.cn.mm.bing.net/th/id/R-C.1fee87aef798fc645da2601af49590d3?rik=sI50yfofBqL1pw&riu=http%3a%2f%2fn.sinaimg.cn%2fsinakd20201008s%2f558%2fw1080h1078%2f20201008%2f9bbb-kaaxtfn9379922.jpg&ehk=NMoFAW%2fLcdLEPc2b%2bSx4OoV4M9si6NUJhMpzf9iz1v4%3d&risl=&pid=ImgRaw&r=0"
+                             style="width: 60px;height: 60px;border-radius: 50%;position: relative;bottom: 12px">
+                    </div>
+                    <!--                        <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">编号</label>
+                    <div class="layui-input-inline">
+                        <sapn style="position: relative;top: 9.5px" th:text="${principal.id}"></sapn>
+
+                    </div>
+                    <!--                    sec:authentication="principal.MyUser.userId"-->
+                    <!--                        <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="nickname" required lay-verify="required" id="nickname"
+                               placeholder="请输入需修改的用户名" th:value="${principal.nickName}" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                    <!--                        <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">医生姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="doctorName" readonly="readonly" style="border: none" id="username"
+                               required lay-verify="required" th:value="${principal.userName}"
+                               placeholder="请输入修改的姓名" autocomplete="off" class="layui-input">
+                    </div>
+                    <!--                        <div class="layui-form-mid layui-word-aux">辅助文字</div>-->
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属诊室</label>
+                    <div class="layui-input-block">
+                        <select name="keshi" lay-verify="required" id="keshi">
+                            <option value="">请选择</option>
+                            <option th:each="dep, stat : ${principal.deps}"
+                                    th:text="${dep.deptName}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <script>
+                    <!--  th:value="${stat.index != '四川省立第二医院'}"-->
+                </script>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系方式</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone" id="phone" required lay-verify="required"
+                               placeholder="请输入修改的电话号码" th:value="${principal.phone}" autocomplete="off"
+                               class="layui-input">
+                    </div>
+
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">医生简介</label>
+                    <div class="layui-input-block">
+                        <textarea name="introduce" id="introduce" placeholder="请输入需要修改的简介内容"
+                                  class="layui-textarea">[[${principal.introduce}]]</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">医生专项</label>
+                    <div class="layui-input-block">
+                        <textarea name="desc" id="desc" placeholder="请请输入修改的内容" class="layui-textarea">[[${principal.major}]]</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary layui-border-blue " lay-submit=""
+                                lay-filter="formDemo">保存
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--        修改密码-->
+        <div class="layui-tab-item">
+            <form class="layui-form" method="get">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="id" readonly="readonly" required lay-verify="required"
+                               th:value="${principal.id}" autocomplete="off" class="layui-input disabled">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="pusername" readonly="readonly" required lay-verify="required"
+                               th:value="${principal.userName}" autocomplete="off" class="layui-input disabled">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">原密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="oldpassword" required lay-verify="required" placeholder="请输入原密码"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="confirm_password" required lay-verify="required"
+                               placeholder="请输入密码"
+                               autocomplete="off" class="layui-input">
+                        <span name="msg" style="color: red"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-primary layui-border-blue " lay-submit=""
+                                lay-filter="formDemo3" name="">提交
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.use(['element', 'form', 'jquery'], function () {
+        var $ = layui.jquery
+            , element = layui.element
+            , form = layui.form
+        //触发事件
+        var active = {
+            tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+
+        $('.site-demo-active').on('click', function () {
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+        form.on('submit(formDemo)', function (data) {
+            console.log("准备提交", data.field.nickname)
+            //发送ajax请求
+            $.ajax({
+                url: '/hos/user/receive', //替换为你的提交地址
+                type: 'GET',
+                data: {
+                    username: data.field.doctorName,
+                    nickname: data.field.nickname,
+                    keshi: data.field.keshi,
+                    phone: data.field.phone,
+                    introduce: data.field.introduce,
+                    desc: data.field.desc
+                },
+                success: function (response) {
+                    console.log(response)
+                    //成功回调
+                    // layer.msg('提交成功');
+                    layer.msg('提交成功');
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                    // top.location.reload();//刷新页面
+                    // layer.msg(response.message); //显示返回的消息
+                },
+                error: function () {
+                    //失败回调
+                    layer.msg('提交失败');
+                }
+            });
+            //阻止表单默认提交行为
+            return false;
+        });
+        form.on('submit(formDemo3)', function (data) {
+
+            console.log("xiugaimima")
+            let password = data.field.password
+            let confirm = data.field.confirm_password
+            if (password !== confirm) {
+                layer.msg('两次密码不一致')
+                return false//阻止表单提交
+            }
+            if (password.length!==6 || confirm.length !==6){
+                layer.msg('密码长度不能低于6位')
+                return false;
+            }
+            $.ajax({
+                url: '/hos/user/editpassword',
+                type: 'GET',
+                data: {
+                    // fromdata:JSON.stringify(data)
+                    id: data.field.id,
+                    username: data.field.pusername,
+                    oldpassword:data.field.oldpassword,
+                    pword: data.field.password,
+                    pword2: data.field.confirm_password
+                },
+                success: function (response) {
+                    console.log(response)
+                    //成功回调
+
+                    if (response.code==2){
+                        layer.msg('原密码错误');
+                    }
+                    // layer.msg('提交成功');
+                    if (response.code==0){
+                        layer.msg('提交成功');
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                    }
+                    if (response.code==201){
+                        layer.msg('提交失败');
+                    }
+
+
+                },
+            })
+            //阻止表单默认提交行为
+            return false;
+        })
+
+
+    });
+</script>
+</body>
+</html>

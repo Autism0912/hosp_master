@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <header th:replace="header::html"></header>
+    <style>
+        .big-box{
+            width: 100%;
+            background-color: #F5F5F5;
+        }
+        .big-box .doctor-box{
+            width: 100%;
+            background-color: #FFFFFF;
+            margin-bottom: 30px;
+        }
+        .big-box .base-msg{
+            width: 100%;
+            background-color: #FFFFFF;
+            margin-bottom: 30px;
+        }
+        .big-box .base-situation{
+            width: 100%;
+            background-color: #FFFFFF;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body  >
+<div class="big-box">
+        <!--  医生详细信息  -->
+    <div class="doctor-box">
+        <p style="font-size: 40px">[[${msg.sickName}]]&nbsp;&nbsp;<span style="font-size: 25px">年龄:</span><span style="font-size: 25px">[[${msg.age}]]</span></p></br>
+        ID:<span>[[${msg.sickCode}]]</span>&nbsp;&nbsp;科室:<span>[[${msg.deptName}]]</span>&nbsp;&nbsp;主治医生:<span>[[${msg.name}]]</span>
+    </div>
+        <!--  基础信息  -->
+    <div class="base-msg">
+        建档日期:<span style="margin-right: 100px">[[${msg.createTime}]]</span><br>
+       <p> 就诊ID:[[${msg.id}]]</p>
+        身份证:<span style="margin-right: 100px">[[${msg.papertypeCode}]]</span><br>
+        <p>年龄:[[${msg.age}]]</p>
+        性别:<span name="sex" style="margin-right: 100px" th:text="男"  th:if="${msg.sickSex == 0}"></span><span th:if="${msg.sickSex == 1}" th:text="'女'"></span><br>
+        手机号:<span style="margin-right: 100px">[[${msg.sickPhone}]]</span><br>
+        <p>地址:[[${msg.sickAddr}]]</p>
+    </div>
+        <!--  基础病情  -->
+    <div class="base-situation">
+        主诉:<span>[[${msg.illDes}]]</span><br/>
+        诊断:<span>[[${msg.decDiag}]]</span><br/>
+        病史:<span>[[${msg.illHistory}]]</span><br/>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <header th:replace="header::html"></header>
+</head>
+<body>
+<form class="layui-form" action="">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">患者id</label>
+        <div class="layui-input-inline">
+            <input type="text" name="id" readonly required lay-verify="required"  autocomplete="off" class="layui-input" th:value="${order.id}">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">患者姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="sickName" readonly th:value="${order.sickName}" required lay-verify="required"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">患者年龄</label>
+        <div class="layui-input-inline">
+            <input type="text" name="age" readonly th:value="${order.age}" required lay-verify="required"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">患者身份证号码</label>
+        <div class="layui-input-inline">
+            <input type="text" th:value="${order.papertypeCode}" readonly name="papertyperCode" required lay-verify="required"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">患者手机号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="sickPhone" readonly th:value="${order.sickPhone}" required lay-verify="required"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">预约时间</label>
+        <div class="layui-input-inline">
+            <input type="text" th:value="${order.createTime}" readonly name="sickorderTime" required lay-verify="required"  autocomplete="off" class="layui-input la">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">审核状态</label>
+        <div class="layui-input-block">
+            <input type="radio" name="orderStatus" th:checked="${order.orderStatus==1}" value="1" title="通过">
+            <input type="radio" th:checked="${order.orderStatus==0}" name="orderStatus" value="0" title="未通过" checked>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block" >
+            <button class="layui-btn" lay-submit  lay-filter="formDemo" style="margin-left: 30px">立即提交</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use(['form','element','jquery'], function(){
+        var $ = layui.jquery
+            ,element = layui.element
+            ,form = layui.form
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            $.ajax({
+                url:'/hospital/user/audit',
+                type:'GET',
+                data:data.field,
+                success:function (res){
+                    console.log(res)
+                    if (res.data.code===0){
+                        layer.msg("审核成功")
+                        window.parent.location.reload();
+                    }else {
+                        layer.msg("审核失败")
+                        window.parent.location.reload();
+                    }
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

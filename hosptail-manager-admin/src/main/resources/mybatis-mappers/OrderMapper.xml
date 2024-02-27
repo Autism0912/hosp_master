@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.userCenter.dao.OrderMapper">
+    <update id="update">
+        UPDATE hos_order
+        SET order_status = #{orderStatus}
+        WHERE cost_id = (SELECT cost_id FROM hos_sick WHERE id = #{id});
+    </update>
+
+    <select id="findAll" resultType="com.hxzy.hospital.dev.userCenter.dto.OrderDto">
+        select a.id,a.sick_name,a.sick_code,c.proj_name,a.create_time,a.sick_sex,a.papertype_code,b.order_status
+        from hos_sick as a
+                 inner join hos_order as b on a.cost_id=b.cost_id
+                 inner join hos_proj as c on b.proj_id=c.id limit #{page},#{limit}
+    </select>
+    <select id="noStatus" resultType="com.hxzy.hospital.dev.userCenter.dto.OrderDto">
+        select a.id,a.sick_name,a.sick_code,c.proj_name,a.create_time,a.sick_sex,a.papertype_code,b.order_status
+        from hos_sick as a
+                 inner join hos_order as b on a.cost_id=b.cost_id
+                 inner join hos_proj as c on b.proj_id=c.id where b.order_status=2 limit #{page},#{limit}
+    </select>
+    <select id="areadyCode" resultType="com.hxzy.hospital.dev.userCenter.dto.OrderDto">
+        select a.id,a.sick_name,a.sick_code,c.proj_name,a.create_time,a.sick_sex,a.papertype_code,b.order_status
+        from hos_sick as a
+                 inner join hos_order as b on a.cost_id=b.cost_id
+                 inner join hos_proj as c on b.proj_id=c.id where b.order_status!=2 limit #{page},#{limit}
+    </select>
+
+
+    <select id="search" resultType="com.hxzy.hospital.dev.userCenter.dto.OrderDto">
+        select a.id,a.sick_name,a.sick_code,c.proj_name,a.create_time,a.sick_sex,a.papertype_code,b.order_status
+        from hos_sick as a
+                 inner join hos_order as b on a.cost_id=b.cost_id
+                 inner join hos_proj as c on b.proj_id=c.id
+                 <where>
+                     <if test="nickname != null">
+                        a.sick_name like '%${nickname}%'
+                     </if>
+                    <if test="idCard != null">
+                       AND a.sick_code like '%${idCard}%'
+                    </if>
+                    <if test="date != null">
+                        AND a.create_time like '%${date}%'
+                    </if>
+                 </where>
+    </select>
+    <select id="userDetail" resultType="com.hxzy.hospital.dev.userCenter.dto.OrderDto">
+        select a.id,a.sick_name,a.sick_phone,a.sick_code,a.sick_phone,a.papertype_code,c.proj_name,a.create_time,a.sick_sex,a.papertype_code,b.order_status
+        from hos_sick as a
+                 inner join hos_order as b on a.cost_id=b.cost_id
+                 inner join hos_proj as c on b.proj_id=c.id where a.id=#{id}
+    </select>
+    <select id="orderMsg" resultType="com.hxzy.hospital.dev.userCenter.dto.OrderDto">
+        select a.id,a.sick_name,a.sick_phone,a.sick_code,a.sick_phone,a.papertype_code,c.proj_name,a.create_time,a.sick_sex,a.papertype_code,f.dept_name,e.name,a.sick_addr,d.ill_des,d.doc_diag,d.ill_history
+        from hos_sick as a
+                 inner join hos_order as b on a.cost_id=b.cost_id
+                 inner join hos_proj as c on b.proj_id=c.id
+                 inner join hos_repo as d on a.cost_id=d.cost_id
+                 inner join hos_user as e on d.doc_id = e.id
+                 inner join my_dept as f on d.dept_id=f.dept_id
+        GROUP BY a.id,a.sick_name,a.sick_phone,a.sick_code,a.sick_phone,a.papertype_code,c.proj_name,a.create_time,a.sick_sex,a.papertype_code,b.order_status
+        having a.id=#{id}
+    </select>
+</mapper>

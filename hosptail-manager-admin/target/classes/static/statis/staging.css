@@ -1,0 +1,22 @@
+.div-float{
+    float: right;
+}
+
+.font-middle{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.font-below{
+    font-size: 24px;
+    color: #007DDB;
+    font-weight: 800;
+}
+
+.echarts-records{
+    width: 100%;
+}
+
+.div-son{
+    margin-bottom: 25px;
+}

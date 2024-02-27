@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.admin.dao.HosOrderDao">
+    <update id="setOrderApprova">
+        update hos_order set order_approva=1 where id=#{id}
+    </update>
+
+    <select id="getList" resultType="com.hxzy.hospital.dev.admin.entity.HosOrder">
+        select *from hos_order;
+    </select>
+</mapper>

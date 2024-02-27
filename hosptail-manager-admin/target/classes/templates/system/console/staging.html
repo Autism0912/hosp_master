@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>首页三</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/component/pear/css/pear.css}"/>
+    <link rel="stylesheet" th:href="@{/admin/css/other/console2.css}"/>
+    <link rel="stylesheet" th:href="@{/statis/inconfont.css}">
+    <link rel="stylesheet" th:href="@{/statis/staging.css}">
+    <style>
+        .card-padding {
+            margin-right: 40px;
+        }
+
+        .card-center-height {
+        }
+    </style>
+</head>
+<body class="pear-container">
+<div class="layui-row layui-col-space10">
+    <div class="layui-col-md20">
+        <div class="layui-row layui-col-space10">
+            <div class="layui-row">
+                <div class="div-float">
+                    <div class="layui-btn-group" id="time-filter">
+                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" currentLable="1">日</button>
+                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" currentLable="2">周</button>
+                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" currentLable="3">月</button>
+                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" currentLable="4">季度</button>
+                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" currentLable="5">年</button>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" class="layui-input" id="test10" placeholder="日期时间范围"
+                                   style="width: 300px" onclick="thisTime(6)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-row layui-col-space10">
+                            <div class="layui-col-md2 layui-col-sm2 layui-col-xs2 card-padding">
+                                <div class="pear-card2">
+                                    <div class="title">用户总数</div>
+                                    <div class="count" id="userCount"></div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 layui-col-sm2 layui-col-xs2 card-padding">
+                                <div class="pear-card2">
+                                    <div class="title">接待患者数(人)</div>
+                                    <div class="count" id="receive"></div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 layui-col-sm2 layui-col-xs2 card-padding">
+                                <div class="pear-card2">
+                                    <div class="title">就诊金额(元)</div>
+                                    <div class="count" id="pay">21</div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 layui-col-sm2 layui-col-xs2 card-padding">
+                                <div class="pear-card2">
+                                    <div class="title">复诊人数(人)</div>
+                                    <div class="count" id="rePeopleNum">21</div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 layui-col-sm2 layui-col-xs2 card-padding">
+                                <div class="pear-card2">
+                                    <div class="title">出诊人数(人)</div>
+                                    <div class="count"  id="rePeopleNum2">21</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5 card-center-height">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        看诊数量
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                            <div id="echarts-records" style="background-color:#ffffff;min-height:300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4 card-center-height">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        就诊金额
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                            <div id="echarts-records1" class="echarts-records" style="background-color:#ffffff;min-height:300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3 card-center-height">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        科室接诊人数
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                            <div style="background-color:#ffffff;min-height:300px;">
+                                <div class="layui-row grid-demo div-son">
+                                    <div class="layui-col-md3 font-top iconfont icon-tiwenqiang"></div>
+                                    <div class="layui-col-md6 font-middle">激光室</div>
+                                    <div class="layui-col-md3 font-below">1683</div>
+                                </div>
+                                <div class="layui-row grid-demo div-son">
+                                    <div class="layui-col-md3 font-top iconfont icon-xwj"></div>
+                                    <div class="layui-col-md6 font-middle">病理室</div>
+                                    <div class="layui-col-md3 font-below">1512</div>
+                                </div>
+                                <div class="layui-row grid-demo div-son">
+                                    <div class="layui-col-md3 font-top iconfont icon-yisheng"></div>
+                                    <div class="layui-col-md6 font-middle">光疗水域治疗室</div>
+                                    <div class="layui-col-md3 font-below">658</div>
+                                </div>
+                                <div class="layui-row grid-demo div-son">
+                                    <div class="layui-col-md3 font-top iconfont icon-menzhenjilu"></div>
+                                    <div class="layui-col-md6 font-middle">门诊</div>
+                                    <div class="layui-col-md3 font-below">512</div>
+                                </div>
+                                <div class="layui-row grid-demo div-son">
+                                    <div class="layui-col-md3 font-top iconfont icon-zhuyuan"></div>
+                                    <div class="layui-col-md6 font-middle">住院部患者</div>
+                                    <div class="layui-col-md3 font-below">225</div>
+                                </div>
+                                <div class="layui-row grid-demo div-son">
+                                    <div class="layui-col-md3 font-top iconfont icon-yuyueshoushu"></div>
+                                    <div class="layui-col-md6 font-middle">手术室</div>
+                                    <div class="layui-col-md3 font-below">225</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md8 card-center-height">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        看诊数量
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                            <div id="main" class="echarts-records" style="background-color:#ffffff;min-height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4 card-center-height">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        患者性别比例
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                            <div id="echarts-records4" class="echarts-records" style="background-color:#ffffff;min-height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--</div>-->
+<script th:src="@{/component/layui/layui.js}" charset="utf-8"></script>
+<script th:src="@{/component/pear/pear.js}"></script>
+<script>
+    layui.use(['layer', 'echarts', 'carousel', 'element', 'table', 'laydate','timeUtils'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer,
+            element = layui.element,
+            echarts = layui.echarts,
+            table = layui.table,
+            carousel = layui.carousel,
+            laydate = layui.laydate,
+            timeUtils = layui.timeUtils;
+
+        let dataAxis;
+
+        get("/api/control/find/"+1,"get")
+            .then((data)=>{
+                dataAxis = data.data2.res;
+                getVisitAmount(dataAxis);
+                $("#userCount").html(data.data2.res.userCount);
+                $("#receive").html(data.data2.res.receive);
+                $("#rePeopleNum").html(data.data2.res.rePeopleNum);
+                $("#rePeopleNum2").html(data.data2.res.rePeopleNum);
+                $("#pay").html(data.data2.res.pay);
+        })
+
+        //日期时间范围
+        laydate.render({
+            elem: '#test10'
+            , type: 'datetime'
+            , range: true
+        });
+
+        $("#time-filter").on('click','button',function (event) {
+            const  label = $(this).attr("currentlable");
+            choiceTime(label);
+        })
+
+        //异步请求去请求后端查询数据,需要将时间范围带上
+        function get(url,type,data) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    type: type,
+                    url: url,
+                    data:data,
+                    success: function (result) {
+                        resolve(result)
+                    },
+                    error: function (error) {
+                        reject(error)
+                    }
+                });
+            })
+        }
+
+        function choiceTime(label) {
+            get("/api/control/find/"+label,"get",)
+                .then((data)=>{
+                    dataAxis = data.data2.res;
+                    console.log("dataAxis====>"+dataAxis)
+                    getVisitAmount(dataAxis)
+            })
+        }
+
+        let cols = [
+            [{
+                type: 'checkbox'
+            },
+                {
+                    title: '角色名',
+                    field: 'roleName',
+                    align: 'center',
+                    width: 100
+                },
+                {
+                    title: 'Key值',
+                    field: 'roleCode',
+                    align: 'center'
+                },
+                {
+                    title: '描述',
+                    field: 'details',
+                    align: 'center'
+                },
+                {
+                    title: '是否可用',
+                    field: 'enable',
+                    align: 'center',
+                    templet: '#role-enable'
+                }
+            ]
+        ]
+
+        table.render({
+            elem: '#role-table',
+            url: '../../admin/data/role.json',
+            page: true,
+            cols: cols,
+            skin: 'line'
+        });
+
+        function getVisitAmount(dataAxis) {
+            var records1 = echarts.init(document.getElementById("echarts-records1"), 'walden');
+
+            var option1 = {
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: dataAxis.time
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        data: dataAxis.money,
+                        type: 'line',
+                        areaStyle: {},
+                        barWidth: '25%',
+                    }
+                ]
+            };
+            window.addEventListener('resize', function() {
+                records1.resize();
+            });
+            records1.setOption(option1);
+        }
+
+
+        // 1.基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'), 'walden');
+
+        // 2.指定图表的配置项和数据 放在option对象里面
+        var option = {
+            title: {
+                text: '看诊数量变化'
+            },
+            tooltip: {},
+            legend: {
+                data: ['看诊数量']
+            },
+            xAxis: {
+                data: ["1月", "2月", "3月", "4月", "5月", "6月","7月","8月","9月","10月","11月","12月"]
+            },
+            yAxis: {},
+            series: [{
+                name: '看诊数量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20,12,11,13,21,22,33],
+                barWidth: '25%',
+            }]
+        };
+
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+        // 3.使用刚指定的配置项和数据 显示图表(将表显示到页面上)。
+        myChart.setOption(option);
+
+
+        var echartsRecords4 = echarts.init(document.getElementById('echarts-records4'), 'walden');
+
+        var option4 = {
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                top: '5%',
+                left: 'center'
+            },
+            series: [
+                {
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: 40,
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        {value: 1048, name: '男'},
+                        {value: 735, name: '女'},
+                    ],
+                    barWidth: '25%',
+                }
+            ]
+        };
+        window.addEventListener('resize', function() {
+            echartsRecords4.resize();
+        });
+
+        echartsRecords4.setOption(option4);
+
+        var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
+
+        $("body").on("click", "[data-url]", function () {
+            parent.layui.tab.addTabOnlyByElem("content", {
+                id: $(this).attr("data-id"),
+                title: $(this).attr("data-title"),
+                url: $(this).attr("data-url"),
+                close: true
+            })
+        })
+
+
+        let bgColor = "#fff";
+        let color = [
+            "#0090FF",
+            "#36CE9E",
+            "#FFC005",
+            "#FF515A",
+            "#8B5CFF",
+            "#00CA69"
+        ];
+        let echartData = [{
+            name: "1",
+            value1: 100,
+        },
+            {
+                name: "2",
+                value1: 138,
+            },
+            {
+                name: "3",
+                value1: 350,
+            },
+            {
+                name: "4",
+                value1: 173,
+            },
+            {
+                name: "5",
+                value1: 180,
+            },
+            {
+                name: "6",
+                value1: 150,
+            },
+            {
+                name: "7",
+                value1: 180,
+            },
+            {
+                name: "8",
+                value1: 230,
+            },
+            {
+                name: "9",
+                value1: 250,
+            },
+            {
+                name: "10",
+                value1: 240,
+            },
+            {
+                name: "11",
+                value1: 260,
+            },
+            {
+                name: "12",
+                value1: 257,
+            }
+        ];
+
+        let xAxisData = echartData.map(v => v.name);
+        //  ["1", "2", "3", "4", "5", "6", "7", "8"]
+        let yAxisData1 = echartData.map(v => v.value1);
+        // [100, 138, 350, 173, 180, 150, 180, 230]
+        let yAxisData2 = echartData.map(v => v.value2);
+        // [233, 233, 200, 180, 199, 233, 210, 180]
+        const hexToRgba = (hex, opacity) => {
+            let rgbaColor = "";
+            let reg = /^#[\da-f]{6}$/i;
+            if (reg.test(hex)) {
+                rgbaColor =
+                    `rgba(${parseInt("0x" + hex.slice(1, 3))},${parseInt(
+                        "0x" + hex.slice(3, 5)
+                    )},${parseInt("0x" + hex.slice(5, 7))},${opacity})`;
+            }
+            return rgbaColor;
+        }
+
+        option = {
+            backgroundColor: bgColor,
+            color: color,
+            legend: {
+                right: 10,
+                top: 10
+            },
+            tooltip: {
+                trigger: "axis",
+                formatter: function (params) {
+                    let html = '';
+                    params.forEach(v => {
+                        console.log(v)
+                        html +=
+                            `<div style="color: #666;font-size: 14px;line-height: 24px">
+					                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${color[v.componentIndex]};"></span>
+					                ${v.seriesName}.${v.name}
+					                <span style="color:${color[v.componentIndex]};font-weight:700;font-size: 18px">${v.value}</span>
+					                万元`;
+                    })
+
+
+                    return html
+                },
+                extraCssText: 'background: #fff; border-radius: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);color: #333;',
+                axisPointer: {
+                    type: 'shadow',
+                    shadowStyle: {
+                        color: '#ffffff',
+                        shadowColor: 'rgba(225,225,225,1)',
+                        shadowBlur: 5
+                    }
+                }
+            },
+            grid: {
+                top: 100,
+                containLabel: true
+            },
+            xAxis: [{
+                type: "category",
+                boundaryGap: false,
+                axisLabel: {
+                    formatter: '{value}月',
+                    textStyle: {
+                        color: "#333"
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "#D9D9D9"
+                    }
+                },
+                data: xAxisData
+            }],
+            yAxis: [{
+                type: "value",
+                name: '单位：人',
+                axisLabel: {
+                    textStyle: {
+                        color: "#666"
+                    }
+                },
+                nameTextStyle: {
+                    color: "#666",
+                    fontSize: 12,
+                    lineHeight: 40
+                },
+                splitLine: {
+                    lineStyle: {
+                        type: "dashed",
+                        color: "#E9E9E9"
+                    }
+                },
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                }
+            }],
+            series: [{
+                name: "2018",
+                type: "line",
+                smooth: true,
+                // showSymbol: false,/
+                symbolSize: 8,
+                zlevel: 3,
+                lineStyle: {
+                    normal: {
+                        color: color[0],
+                        shadowBlur: 3,
+                        shadowColor: hexToRgba(color[0], 0.5),
+                        shadowOffsetY: 8
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0,
+                            0,
+                            0,
+                            1,
+                            [{
+                                offset: 0,
+                                color: hexToRgba(color[0], 0.3)
+                            },
+                                {
+                                    offset: 1,
+                                    color: hexToRgba(color[0], 0.1)
+                                }
+                            ],
+                            false
+                        ),
+                        shadowColor: hexToRgba(color[0], 0.1),
+                        shadowBlur: 10
+                    }
+                },
+                data: yAxisData1
+            }]
+        };
+
+        echartsRecords.setOption(option);
+
+        window.onresize = function () {
+            echartsRecords.resize();
+        }
+
+    });
+</script>
+</body>
+</html>

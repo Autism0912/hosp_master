@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间 必须与全类名一致 -->
+<mapper namespace="com.hxzy.hospital.dev.manage.dao.HosRepo4ServiceDao">
+
+    <select id="find" resultType="com.hxzy.hospital.dev.manage.dto.RepoDto">
+        SELECT repo.diag_memo, repo.doc_diag, dept_name, ord.see_count
+        from hos_repo as repo
+                 inner join hos_sick as hos
+                            on repo.sick_code = hos.sick_code
+                 inner join my_dept as dept
+                            on repo.dept_id = dept.dept_id
+                 inner join hos_order as ord
+                            on repo.sick_code = ord.sick_code
+        where hos.sick_code = #{sickCode}
+    </select>
+</mapper>

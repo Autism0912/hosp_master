@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <header th:replace="header::html"></header>
+</head>
+<!-- 引入 layui.js -->
+<script src="//unpkg.com/layui@2.8.17/dist/layui.js"></script>
+<!-- 引入 layui.css -->
+<link href="//unpkg.com/layui@2.8.17/dist/css/layui.css" rel="stylesheet">
+<body>
+<form class="layui-form">
+    <div class="main-container">
+        <input type="hidden" id="id" name="id" th:value="${hosRepoDto.id}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">就诊人</label>
+                <div class="layui-input-block">
+                    <input type="text" readonly name="sickName" lay-verify="required" th:value="${hosRepoDto.sickName}"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">申请科室</label>
+                <div class="layui-input-block">
+                    <input type="text" readonly name="deptName" lay-verify="required" th:value="${hosRepoDto.deptName}"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">开方医生</label>
+                <div class="layui-input-block">
+                    <input type="text" readonly name="docName" lay-verify="required" th:value="${hosRepoDto.docName}"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">上传时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="updateTime" id="laydate-datetime"
+                           placeholder="yyyy-MM-dd HH:mm:ss" lay-verify="required">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">报告名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="repoName" th:value="${hosRepoDto.repoName}" lay-verify="required"
+                       placeholder="请输入报告名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">影像图片</label>
+            <div class="layui-upload">
+                <button type="button" name="picture" class="layui-btn" id="upload_img">多图片上传</button>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">预览</label>
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                <div class="layui-upload-list" id="preview"></div>
+            </blockquote>
+            <input type="hidden" name="imageUrl" id="imageUrl" value="">
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">检查所见</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" name="checkMemo" th:text="${hosRepoDto.checkMemo}"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">诊断意见</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" name="diagMemo" th:text="${hosRepoDto.diagMemo}"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit lay-filter="update">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<script>
+    layui.use(['form', 'jquery'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        let upload = layui.upload;
+        let laydate = layui.laydate;
+
+        let imageUrl = [];
+
+        // 日期
+        laydate.render({
+            elem: '#laydate-datetime',
+            type: 'datetime',
+            fullPanel: true // 2.8+
+        });
+
+        // 对弹层中的表单进行初始化渲染
+        form.render();
+        // 表单提交事件
+        form.on('submit(update)', function (data) {
+            var field = data.field; // 获取表单字段值
+            var id = field.id;
+            console.log("id:"+id)
+            var updateTime = field.updateTime;
+            var repoName = field.repoName;
+            var checkMemo = field.checkMemo;
+            var diagMemo = field.diagMemo;
+
+            //对象转JSON
+            let jsonData = JSON.stringify({
+                id: id,
+                updateTime: updateTime,
+                repoName: repoName,
+                checkMemo: checkMemo,
+                diagMemo: diagMemo,
+                file: imageUrl,
+            });
+            // 此处可执行 Ajax 等操作
+            $.ajax({
+                url: "/hospital/report",
+                method: 'put',
+                data: jsonData,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    if(result.success){
+                        layer.msg(result.msg,{icon:1,time:1000},function(){
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            parent.location.reload();
+                        });
+                    }else{
+                        layer.msg(result.msg,{icon:2,time:1000});
+                    }
+                }
+            })
+            return false; // 阻止默认 form 跳转
+        });
+
+        //多图片上传
+        upload.render({
+            elem: '#upload_img'
+            , url: '/upload/report/image' //此处配置你自己的上传接口即可
+            , multiple: true
+            , accept: 'images'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#preview').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style=" width: 90px;height: 90px">')
+                });
+            }
+            , done: function (res) {
+                //console.log(res.data2.image_url)
+                if (res.code == 0){
+                    imageUrl.push(res.data2.image_url);
+                    layer.msg("上传完毕")
+                }else{
+                    //上传完毕
+                    layer.msg("上传失败")
+                }
+
+            }
+        });
+    });
+</script>
+</body>
+</html>

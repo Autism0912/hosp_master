@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>预约管理</title>
+    <header th:replace="header::html"></header>
+
+</head>
+<body>
+
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><b>用户名</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="nickName" placeholder="" class="layui-input">
+                </div>
+                <label class="layui-form-label"><b>卡号ID</b></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="idCard" placeholder="" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label"><b>预约时间</b></label>
+                    <div class="layui-input-inline layui-input-wrap">
+                        <input type="text" name="date" id="date"  placeholder="年-月-日" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <button id="user-query" class="pear-btn pear-btn-md pear-btn-primary" lay-submit="" lay-filter="userQuery">
+                    <i class="layui-icon layui-icon-search"></i>
+                    搜索
+                </button>
+
+                <button type="reset" class="pear-btn pear-btn-md">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+<div class="layui-tab" lay-filter="test">
+    <ul class="layui-tab-title">
+        <li class="layui-this" lay-id="11">全部</li>
+        <li lay-id="33">待审核</li>
+        <li lay-id="44">已审核</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item  layui-show">
+            <!-- 内容一 -->
+            <table  id="ID-table-demo-data" lay-filter="ID-table-demo-data"></table>
+        </div>
+        <div class="layui-tab-item">
+            <table  id="ID-table-demo-data1"></table>
+        </div>
+        <div class="layui-tab-item">
+            <table  id="ID-table-demo-data2"></table>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="barDemo"  >
+    <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal" lay-event="allmsg">详情</button>
+    <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal" lay-event="detail">审核</button>
+
+</script>
+<script type="text/html" id="barDemo2">
+    <a class="layui-btn  layui-btn-normal" lay-event="details">详情</a>
+    <a class="layui-btn layui-btn-disabled" lay-event="modify">审核</a>
+</script>
+
+<script type="text/html" id="sex">
+    {{#if(d.sickSex ===0){  }}
+     男
+    {{# }else if(d.sickSex===1) { }}
+    女
+    {{# }else { }}
+    保密
+    {{# } }}
+</script>
+
+<script type="text/html" id="status">
+    {{#if(d.orderStatus ===0){ }}
+    未通过
+    {{# }else if(d.orderStatus ===1){ }}
+    通过
+    {{# }else if(d.orderStatus ===2){ }}
+    待审核
+    {{# } }}
+</script>
+
+<script>
+    layui.use(['element','table','jquery','laydate','form','layer'], function(){
+        var $ = layui.jquery
+            ,element = layui.element
+            ,table = layui.table
+            ,laydate = layui.laydate
+            ,form = layui.form
+            ,layer=layui.layer
+
+        let cols = [
+                [
+                    {field: 'id', title: '预约编号', width: 173, sort: true},
+                    {field: 'sickName', title: '姓名', width: 180},
+                    {field: 'sickCode', title: '卡号', width: 180},
+                    {field: 'projName', title: '治疗项目', width: 180},
+                    {field: 'createTime', title: '预约日期', width: 180},
+                    {field: 'sickSex', toolbar: '#sex',title: '性别', width: 180},
+                    {field: 'age', title: '年龄', width: 180,default:26},
+                    {field: 'orderStatus', title: '状态', toolbar:'#status',width: 180,},
+                    {field: 'status',toolbar:'#barDemo', title: '操作', width: 180,},
+                ]
+            ]
+
+          let tableIns = table.render({
+            elem: '#ID-table-demo-data',
+            url: "/hospital/user/hosData",
+            page: true,
+            cols: cols,
+            limits: [5, 10, 15],
+            limit: 5
+        });
+        // 待审核
+        let inst1 = table.render({
+            elem: '#ID-table-demo-data1',
+            cols: [
+                [
+                    {field: 'id', title: '预约编号', width: 173, sort: true},
+                    {field: 'sickName', title: '姓名', width: 180},
+                    {field: 'sickCode', title: '卡号', width: 180},
+                    {field: 'projName', title: '治疗项目', width: 180},
+                    {field: 'createTime', title: '预约日期', width: 180},
+                    {field: 'sickSex', toolbar: '#sex',title: '性别', width: 180},
+                    {field: 'age', title: '年龄', width: 180,default:26},
+                    {field: 'orderStatus', title: '状态', toolbar:'#status',width: 180,},
+                    {field: 'status',toolbar:'#barDemo', title: '操作', width: 180,},
+                ]
+            ],
+
+            url: "/hospital/user/hosData/nostatus",
+            page: true,
+            limits: [5, 10, 15],
+            limit: 5
+        });
+        // 已审核
+        // 待审核
+        var inst = table.render({
+            elem: '#ID-table-demo-data2',
+            cols: [
+                [
+                    {field: 'id', title: '预约编号', width: 173, sort: true},
+                    {field: 'sickName', title: '姓名', width: 180},
+                    {field: 'sickCode', title: '卡号', width: 180},
+                    {field: 'projName', title: '治疗项目', width: 180},
+                    {field: 'createTime', title: '预约日期', width: 180},
+                    {field: 'sickSex', toolbar: '#sex',title: '性别', width: 180},
+                    {field: 'age', title: '年龄', width: 180,default:26},
+                    {field: 'orderStatus', title: '状态', toolbar:'#status',width: 180,},
+                    {field: 'status',toolbar:'#barDemo2', title: '操作', width: 180,},
+                ]
+            ],
+            url: "/hospital/user/hosData/alreadyCode",
+            page: true,
+            limits: [5, 10, 15],
+            limit: 5
+        });
+
+        //触发事件
+        var active = {
+            tabChange: function () {
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        }
+
+        // 日期
+        laydate.render({
+            elem: '#date'
+        });
+
+        table.on('tool(ID-table-demo-data)',function (obj) {
+           if (obj.event==='detail'){
+               window.detail(obj)
+           }
+           if (obj.event==='allmsg'){
+               window.allmsg(obj)
+           }
+        })
+        window.allmsg = function (obj){
+            window.location.href = "/hospital/user/msg/"+obj.data.id
+        }
+        window.detail = function (obj) {
+            layer.open({
+                type:2,
+                title:'审核(取消审核请点X)',
+                shade: 0.1,
+                area: ['600px', '600px'],
+                content:'/hospital/user/details/'+ obj.data.id,
+            })
+            console.log("进来了")
+
+        }
+
+        form.on('submit(userQuery)', function (data){
+            tableIns.reload({
+                page:1,
+                where:{
+                    nickname: data.field.nickName,
+                    idCard:data.field.idCard,
+                    date:data.field.date
+                },
+                url:'/hospital/user/search',
+                method:'GET'
+            })
+            return false;
+        })
+
+    });
+</script>
+
+
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            setTop: function(){
+                var that = this;
+                //多窗口模式，层叠置顶
+                layer.open({
+                    type: 1 //此处以iframe举例
+                    ,title: '当你选择该窗体时，即会在最顶端'
+                    ,area: ['390px', '260px']
+                    ,shade: 0
+                    ,maxmin: true
+                    ,offset: [ //为了演示，随机坐标
+                        Math.random()*($(window).height()-300)
+                        ,Math.random()*($(window).width()-390)
+                    ]
+                    ,content: '<div style="padding: 15px;">内容标记：'+ new Date().getTime() + '，按 ESC 键可关闭。<br><br>当你的页面有很多很多 layer 窗口，你需要像 Window 窗体那样，点击某个窗口，该窗体就置顶在上面，那么 layer.setTop() 可以来轻松实现。它采用巧妙的逻辑，以使这种置顶的性能达到最优。</div>'
+
+                    ,btn: ['继续弹出', '全部关闭'] //只是为了演示
+                    ,yes: function(){
+                        $(that).click();
+                    }
+                    ,btn2: function(){
+                        layer.closeAll();
+                    }
+
+                    ,zIndex: layer.zIndex //重点1
+                    ,success: function(layero, index){
+                        layer.setTop(layero); //重点2. 保持选中窗口置顶
+
+                        //记录索引，以便按 esc 键关闭。事件见代码最末尾处。
+                        layer.escIndex = layer.escIndex || [];
+                        layer.escIndex.unshift(index);
+                        //选中当前层时，将当前层索引放置在首位
+                        layero.on('mousedown', function(){
+                            var _index = layer.escIndex.indexOf(index);
+                            if(_index !== -1){
+                                layer.escIndex.splice(_index, 1); //删除原有索引
+                            }
+                            layer.escIndex.unshift(index); //将索引插入到数组首位
+                        });
+                    }
+                    ,end: function(){
+                        //更新索引
+                        if(typeof layer.escIndex === 'object'){
+                            layer.escIndex.splice(0, 1);
+                        }
+                    }
+                });
+            }
+
+            ,notice: function(){
+                //示范一个公告层
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '300px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['火速围观', '残忍拒绝']
+                    ,btnAlign: 'c'
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br> layer 只是作为 layui 的一个弹层模块，由于其用户基数较大，所以常常会有人以为 layui 是 <del>layerui</del><br><br>layer 虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级 ^_^</div>'
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: '../index.htm'/*tpa=https://www.layuiweb.com/*/
+                            ,target: '_blank'
+                        });
+                    }
+                });
+            }
+            ,offset: function(othis){
+                var type = othis.data('type')
+                    ,text = othis.text();
+
+                layer.open({
+                    type: 1
+                    ,offset: type //具体配置参考：https://www.layuiweb.com/doc/modules/layer.html#offset
+                    ,id: 'barDemo'+type //防止重复弹出
+                    ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
+                    ,btn: '关闭全部'
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0 //不显示遮罩
+                    ,yes: function(){
+                        layer.closeAll();
+                    }
+                });
+            }
+        };
+
+        $('#barDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+
+        //多窗口模式 - esc 键
+        $(document).on('keyup', function(e){
+            if(e.keyCode === 27){
+                layer.close(layer.escIndex ? layer.escIndex[0] : 0);
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>
